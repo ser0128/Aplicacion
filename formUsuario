@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+</head>
+<body>
+<!----<body background="http://www.exteriores.gob.es/Portal/es/ServiciosAlCiudadano/SiViajasAlExtranjero/PublishingImages/3_1_4_REGISTRO_G.jpg">------->
+
+<!---- IMAGEN DE FONDDO ---->
+       
+<!------ Include the above in your HEAD tag ---------->
+
+    <form class="form-horizontal" name="frm" id="frm" action="actusu.php" method="get">
+    <fieldset>
+
+    <!-- Form Name -->
+    <legend align="center">REGISTRO</legend>
+
+    <!-- idusu-->
+<div align="center">
+<div class="form-group">
+      <label class="col-md-4 control-label" for="idu">User Name</label>  
+    <div class="col-md-2">
+      <input id="idu" name="idu" type="text" placeholder="ID" class="form-control ">
+    
+  </div>
+</div>
+
+<!-- nomusu input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="nomusu">Nombre Completo</label>  
+  <div class="col-md-2">
+  <input id="nomus" name="nomusu" type="text" placeholder="NOMBRE" class="form-control " required="">
+    
+  </div>
+</div>
+
+<!-- correo input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="email">Correo</label>
+  <div class="col-md-2">
+    <input id="email" name="email" type="text" placeholder="Correo" class="form-control " required="">
+    
+  </div>
+</div>
+
+<!-- contraseña input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="pwd">Contraseña</label>
+  <div class="col-md-2">
+    <input id="pwd" name="pwd" type="password" placeholder="Escribe Contraseña" class="form-control " required="">
+    
+  </div>
+</div>
+
+
+<!-- estado input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="Estado">Estado</label>  
+  <div class="col-md-2">
+    <select name="Estado" id="Estado" class="form-control">
+        <option value="1">1</option>
+        <option value="0">0</option>
+     </select>
+  </div>
+</div>
+
+
+<!-- fecha input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="Fecha">Fecha</label>  
+  <div class="col-md-2">
+  <input id="Fecha" name="Fecha" type="date" placeholder="Email" class="form-control input-md" required="">
+    
+  </div>
+</div>
+
+
+<!-- role input-->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="idRole">Role</label>  
+  <div class="col-md-2">
+  <?php include_once("cboRole.php"); ?>    
+  </div>
+</div>
+
+<!-- Button -->
+<div class="form-group">
+  <label class="col-md-4 control-label" for="boton"></label>
+  <div class="col-md-4">
+     <button id="boton" name="boton" value="Agregar" class="btn btn-success">Registrar</button>
+     <button value="Actualizar" id="boton" name="boton" class="btn btn-warning">Actualiza</button>
+      <button value="Limpiar" type="button" id="boton" name="boton" class="btn btn-success">Limpiar</button>
+  </div>
+</div>
+</div>
+</fieldset>
+</form>
+<div class="container">
+	<div class="row">
+	</div>
+</div>
+   <br>
+    <div id="msj" align="center"></div>
+    <div id="tabla" aligh="center"></div>
+    
+    
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.js"></script>
+    <script>
+        $("#tabla").load("tablaUsuario.php")
+        
+        $("#tabla").on("click",".selecciona",function(){
+            $("#idUsu").val($(this).attr("data-id"));
+            $("#NomUsu").val($(this).attr("data-nom"));
+            $("#email").val($(this).attr("data-cor"));
+            $("#pwd").val($(this).attr("data-pwd"));
+             $("#Estado").val($(this).attr("data-est"));
+             $("#Fecha").val($(this).attr("data-fec"));
+        });
+        
+        $("button[type=button]").click(function(){
+            var boton = $(this).attr("value");
+            alert("Diste click en un boton:" + boton);
+            if (boton == "Limpiar")
+                {
+            $("#idUsu").val("");
+            $("#NomUsu").val("");
+            $("#email").val("");
+            $("#pwd").val("");
+            $("#Estado").val("");
+            $("#Fecha").val(""); 
+            $("#NomUsu").focus();
+                }
+            else
+            {
+                var parametros = 'idUsu=' + $("#idUsu").val() +
+                    '&NomUsu=' +$("#NomUsu").val() +
+                    '&email=' + $("#email").val() +
+                    '&pwd=' + $("#pwd").val() +
+                    '&Estado=' + $("#Estado").val() + 
+                    '&Fecha=' + $("#Fecha").val() +
+                    "&boton=" + boton;
+                
+                $.ajax({
+                        url: "actUsuario.php",
+                        type: "GET",
+                        data:parametros,
+                        success: function(respuesta){
+                           alert(respuesta);
+                              
+                            
+                    }
+                    });
+                
+                    
+            }
+            
+        });
+    </script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+</body>
+</html>
