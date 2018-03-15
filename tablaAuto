@@ -1,0 +1,25 @@
+<?php
+include_once("database_utilerias.php");
+    $result = consultaAuto();
+    print"<table align='center' class='table-responsive table-bordered table-hover table-condensed'>
+    <tr>
+    <th>Selecciona</th><th>Modelo del Auto</th><th>Foto</th><th>Modo de Conduccion</th><th>Personas</th><th>Precio</th><th>Estado</th>
+    </tr>";
+    while (!$result->EOF)
+    {
+        $id = $result->fields["idAuto"];
+        $mod = $result->fields["Modelo"];
+        $fot = $result->fields["Foto"];
+        $con = $result->fields["Conduccion"];
+        $per = $result->fields["personas"];
+        $pre = $result->fields["precio"];
+        $edo = $result->fields["Estado"];
+        print "<tr><td><a href='#' class='selecciona' data-id='$id' data-mod='$mod' data-fot='$fot' data-con='$con' data-per='$per' data-pre='$pre' data-edo='$edo'>Clic</a></td><td>$mod</td><td>$fot</td><td>$con</td><td>$per</td><td>$pre</td><td>$edo</td></tr>";
+        $result->MoveNext();
+        
+    }
+print "</table>"
+
+
+
+?>
