@@ -1,0 +1,20 @@
+<?php
+    include_once("./Utilerias/database_utilerias.php");
+    $idr = isset ($_REQUEST['idRole'])?$_REQUEST['idRole']:1;
+    $res = consultaUsuario($idr);
+    print"<table aling='center' class='table-responsive table-hover table-condensed table-bordered table-striped'>
+    <tr><th>selecciona</th><th>Nombre del Usuario</th><th>e-mail</th><th>Contraseña</th><th>Estado</th><th>Fecha</th></tr>";
+while(!$res->EOF)
+{
+    $idu = $res->fields['idUsu'];
+    $nom = $res->fields['NomUsu'];
+    $cor = $res->fields['email'];
+    $pwd = $res->fields['pwd'];
+    $est = $res->fields['Estado'];
+    $fec = $res->fields['Fecha'];
+    print "<tr><td><a href='#' class='selecciona' data-id='$idu' data-nom='$nom'' data-cor='$cor' data-pwd='$pwd' data-est='$est' data-fec='$fec'>Clic</a></td><td>$nom</td><td>$cor</td><td>$pwd</td><td>$est</td><td>$fec</td></tr>";
+    $res->MoveNext();
+}
+
+print "</table>";
+?>
