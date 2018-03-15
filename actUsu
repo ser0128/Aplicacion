@@ -1,0 +1,27 @@
+<?php
+    include_once("Utilerias/database_utilerias.php");
+    $id = isset($_REQUEST['idUsu'])?$_REQUEST['idUsu']:0;
+    $nom = $_REQUEST['NomUsu'];
+    $cor = $_REQUEST['email'];
+    $pwd = $_REQUEST['pwd'];
+    $est = $_REQUEST['Estado'];
+    $fec = $_REQUEST['Fecha'];
+    $idr = $_REQUEST['idRole'];
+    $bot = $_REQUEST['boton'];
+    $res = 0;
+    if ($bot == "Agregar")
+    {
+        $res = agregarUsuario($nom,$cor,$pwd,$est,$fec,$idr);
+    }
+    if ($bot == "Actualizar")
+    {
+        $res = actualizaUsuario($id,$nom,$cor,$pwd,$est,$fec,$idr);
+    }
+    if ($bot == "Borrar")
+    {
+        $res = borraUsuario($id);
+    }
+
+    //header("location:Marca.php")
+    print $res;
+?>
