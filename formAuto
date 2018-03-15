@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head> 
+        <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+
+		<!-- Website CSS style -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+
+		<!-- Website Font style -->
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+		<link rel="stylesheet" href="style.css">
+		<!-- Google Fonts -->
+		<link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css'>
+		<link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css'>
+
+		<title>Admin</title>
+	</head>
+	<body>
+
+        <style>
+body {
+    background-color: #808080;
+}
+</style>
+		<div class="container">
+			<div class="row main">
+				<div class="main-login main-center">
+				<h5 class="navbar-brand text-light">Catalogo de Autos</h5>
+					<form name="frm" id="frm" action="actAuto.php" method="get">
+						<fielset>
+						<div class="form-group">
+							<label for="ida" class="cols-sm-2 control-label">id</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-number fa" aria-hidden="true"></i></span>
+									<input type="number" class="form-control" name="ida" id="ida"  placeholder="id"/>
+								</div>
+							</div>
+							
+						</div>
+                   
+
+                        <div class="form-group">
+							<label for="Modelo" class="cols-sm-2 control-label navbar-brand text-light">Modelo del Auto</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-camera fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="Modelo" id="Modelo"  placeholder="Ingresa el Modelo del Auto"/>
+								</div>
+							</div>
+						</div>
+                    
+						<div class="form-group">
+							<label for="Foto" class="cols-sm-2 control-label navbar-brand text-light">Foto</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-camera fa" aria-hidden="true"></i></span>
+									<input type="text" class="form-control" name="Foto" id="Foto"  placeholder="Ingresa la Foto del Auto"/>
+								</div>
+							</div>
+						</div>
+						
+						 <div class="form-group">
+                            <label for="Conduccion" class="control-label col-md-12 navbar-brand text-light">Modo de Conduccion</label>
+                            <div class="col-md-8">
+                            <select name="Conduccion" id="Conduccion" class="form-control">
+                                <option value="A">Automatico</option>
+                                <option value="M">Manual</option>
+                            </select>
+                            </div>
+                         </div>
+
+						
+
+						<div class="form-group">
+							<label for="personas" class="cols-sm-12 control-label navbar-brand text-light">Numero de Personas</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+									<input type="number" class="form-control" name="personas" id="personas"  placeholder="Para cuantas personas es?"/>
+								</div>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="precio" class="cols-sm-2 control-label navbar-brand text-light">Precio</label>
+							<div class="cols-sm-10">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-money fa" aria-hidden="true"></i></span>
+									<input type="number" class="form-control" name="precio" id="precio"  placeholder="Ingrese Costo de Renta del Auto"/>
+								</div>
+							</div>
+						</div>
+						
+						
+						<div class="form-group">
+                            <label for="Estado" class="control-label col-md-12 navbar-brand text-light">Estado</label>
+                            <div class="col-md-8">
+                            <select name="Estado" id="Estado" class="form-control">
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                            </select>
+                            </div>
+                         </div>
+
+
+						<div class="form-group ">
+                          <div class="col-md-12 col-md-offset-4">
+                         <button value="Agregar" id="boton" name="boton" class="btn btn-success" value="agregar">Agregar</button>
+                         <button value="Actualizar" id="boton" name="boton" class="btn btn-warning" value="actualizar">Actualiza</button>
+                         <button type="button" value="Limpiar" id="boton" name="boton" class="btn btn-secondary" value="Limpiar">Limpiar</button>
+                          </div>
+                          </div>
+                        
+						
+						</fielset>
+					</form>
+				</div>
+			</div>
+		</div>
+         <br>
+    <div id="msj" align="center"></div>
+    <div id="tabla" aligh="center"></div>
+
+		 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.js"></script>
+    
+         <script>
+        $("#tabla").load("tablaAuto.php");
+        
+        $("#tabla").on("click",".selecciona",function(){
+            $("#idAuto").val($(this).attr("data-id"));
+            $("#Modelo").val($(this).attr("data-mod"));
+            $("#Foto").val($(this).attr("data-fot"));
+            $("#Conduccion").val($(this).attr("data-con"));
+            $("#personas").val($(this).attr("data-per"));
+            $("#precio").val($(this).attr("data-pre"));
+            $("#Estado").val($(this).attr("data-edo"));
+        });
+        
+       
+        $("button[type=button]").click(function(){
+            var boton = $(this).attr("value");
+            alert("Diste click en un boton: " + boton);
+            if (boton == "Limpiar")
+                {
+                    $("#idAuto").val("");
+                    $("#Modelo").val("");
+                    $("#Foto").val("");
+                    $("#Conduccion").val("");
+                    $("#personas").val("");
+                    $("#precio").val("");
+                    $("#Estado").val("");
+                    $("#Modelo").focus();
+                }
+            else
+                {
+                    var parametros = 'idAuto=' + $("#idAuto").val() + 
+                        "&Modelo=" + $("#Modelo").val() +
+                        "&Foto=" + $("#Foto").val() + 
+                        "&Conduccion=" +$("#Conduccion").val() + 
+                        "&personas=" + $("#personas").val() + 
+                        "&precio=" + $("#precio").val() +
+                        "&Estado=" + $("#Estado").val() +
+                        "&boton=" + bot;
+                    $.ajax({
+                        url: "actAuto.php",
+                        type: "GET",
+                        data:parametros,
+                        success: function(respuesta){
+                           if($.trim(respuesta) == 1)
+                               {
+                                $("#msj").html("<h3>Transaccion Exitosa</h3>");
+                                   setTimeout(function(){
+                                       $("#msj").fadeOut(2000);
+                                   },2000);
+                                  $("#idAuto").val('');
+                                   $("#Modelo").val('');
+                                   $("#Foto").val('');
+                                   $("#Conduccio").val('');
+                                   $("#personas").val('');
+                                   $("#precio").val('');
+                                   $("#Estado").val('');
+                                   $("#Modelo").focus();
+                                   $("#tabla").load("tablaAuto.php");
+                               }
+                            else
+                                {
+                                   $("#msj").html("<h3>Error: Transaccion No Exitosa</h3>");
+                                   setTimeout(function(){
+                                       $("#msj").fadeOut(2000);
+                                   },2000);
+                                    $("#Modelo").focus();
+                                }
+                    }
+                    }); ///fin de ajax
+                }   ///fin del else del boton limpiar
+        });
+        
+                                       
+        
+        
+    </script>
+
+	</body>
+</html>
