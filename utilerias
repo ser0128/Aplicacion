@@ -1,0 +1,133 @@
+<?php
+//////////////////////////////////////////////////////
+// Archivo para acceso a base de datos del proyecto //
+// EALA                       14/02/2018            //
+//////////////////////////////////////////////////////
+define('DB_HOST', 'localhost');
+define('DB_DATABASE', 'Renta');
+define('DB_USER', 'root');
+define('DB_PASSWORD', '');
+include("./adodb5/adodb.inc.php");
+
+$Cn = NewADOConnection('mysqli');
+$Cn->Connect(DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE);
+
+
+function Ejecuta($sentencia)
+{
+    global $Cn; 
+     if($Cn->Execute($sentencia) === false)
+        return 'Error el insertar: ' . $Cn->ErrorMsg().'<BR>';
+    else
+        return "1";
+}
+
+//---------------Catalogo de Autos-----------------------
+    function consultaAuto()
+    {
+        global $Cn;
+        $sql = 'SELECT idAuto,Modelo,Foto, Conduccion,personas,precio,Estado From auto Order By Modelo ';
+        return $Cn->Execute($sql);
+
+    }
+
+    function agregarAuto($mod,$fot,$con,$per,$pre,$edo)
+    {
+        $sql = "Insert into Auto (Modelo, Foto, Conduccion, personas, precio, Estado) values ('{$mod}', '{$fot}', '{$con}', {$per}, {$pre}, {$edo} )";
+        return Ejecuta ($sql);
+    }
+    function actualizaAuto($id,$mod,$fot,$con,$per,$pre,$edo)
+    {
+        $sql = "Update Auto set Modelo='{$mod}', Foto='{$fot}', Conduccion='{$con}', personas={$per},precio={$pre}, Estado={$edo}";
+        return Ejecuta($sql);
+    }
+
+    function borraAuto($id)
+    {
+
+        $sql = "Delete from Auto where idAuto='{$id}'";
+        return Ejecuta($sql);
+    }
+
+
+
+//------------- Catálogo de Usuarios-----------------------
+function consultaUsuario()
+{
+    global $Cn;
+    $sql = 'Select idUsu,NomUsu,email,pwd,Estado, Fecha from usuario Order By NomUsu';
+    return $Cn->Execute($sql);
+}
+
+function agregarUsuario($NomUsu,$email,$pwd,$Estado,$Fecha, $idRole)
+{
+    
+    $sql = "Insert into usuario(NomUsu, email, pwd, Estado, Fecha, idRole) values ('{$NomUsu}','{$email}','{$pwd}',{$Estado},'{$Fecha}', {$idRole})";
+    return Ejecuta($sql);
+}
+
+function actualizaUsuario($idUsu,$NomUsu,$email,$pwd,$Fecha,$Estado, $idRole)
+{
+    $sql = "Update usuario set NomUsu='{$NomUsu}', email='{$email}', pwd='{$pwd}', Fecha='{$Fecha}', Estado={$Estado} idRole={$idRole} Where idUsu={$idUsu}";
+    return Ejecuta($sql);
+}
+
+function borraUsuario($idUsu)
+{
+    $sql = "Delete from usuario where idUsu={$idUsu}";
+    return Ejecuta($sql);
+}
+
+
+//------------- Catálogo de Role-----------------------
+function consultaRole()
+{
+	global $Cn;
+	$sql = 'SELECT idRole,NomRole,Estado,Fecha From role Order By NomRole';
+	return $Cn->Execute($sql);
+}
+
+function agregarRole($nom, $edo, $fec)
+{
+    
+    $sql = "Insert into Role(NomRole,Estado, Fecha) values('{$nom}', {$edo},'{$fec}' )";
+    return Ejecuta($sql);
+    
+}
+function actualizaRole($id,$nom,$edo,$fec)
+{
+    $sql = "Update Role set NomRole='{$nom}', Estado=$edo, Fecha='{$fec}'  where idRole={$id}";
+    return Ejecuta($sql);
+}
+function borraRole($id)
+{
+    $sql = "Delete from Role where idRole={$id}";
+    return Ejecuta($sql);
+}
+
+
+//------------- Catálogo de Renta-----------------------
+function consultaRenta()
+{
+	global $Cn;
+	$sql = 'SELECT idRenta,folio,fecha, Estado From renta Order By folio';
+	return $Cn->Execute($sql);
+}
+
+function agregarRenta($fol, $fec, $edo, $idUsu, $idAuto)
+{
+    
+    $sql = "Insert into Renta(folio,fecha, Estado, idUsu, idAuto) values({$fol},'{$fec}',{$edo}, {$idUsu}, {$idAuto} )";
+    return Ejecuta($sql);
+    
+}
+function actualizaRenta($id,$fol, $fec, $edo, $idUsu, $idAuto)
+{
+    $sql = "Update Role set folio={$fol}', fecha='{$fec}', estado='{$edo}' , idUsu='{$idUsu}', idAuto='{$idAuto}'  where idRenta={$id}";
+    return Ejecuta($sql);
+}
+function borraRenta($id)
+{
+    $sql = "Delete from Renta where idRenta={$id}";
+    return Ejecuta($sql);
+}
