@@ -1,0 +1,32 @@
+<?php
+    include_once("database_utilerias.php");
+    $id =isset ($_REQUEST['ida'])?$_REQUEST['ida']:0;
+    $mod = $_REQUEST['Modelo'];
+    $fot = $_REQUEST['Foto'];
+    $con = $_REQUEST['Conduccion'];
+    $per = $_REQUEST['personas'];
+    $pre = $_REQUEST['precio'];
+    $edo = $_REQUEST['Estado'];
+    $bot = $_REQUEST['boton'];
+    $res = 0;
+    if ($bot == "Agregar")
+    {
+        $res = agregarAuto($mod,$fot,$con,$per,$pre,$edo);
+    }
+    if ($bot == "Actualizar")
+    {
+        $res = actualizaAuto($id,$mod,$fot,$con,$per,$pre,$edo);
+    }
+    if ($bot == "Borrar")
+    {
+        $res = borraAuto ($id);
+    }
+    print $res;
+///header("Location:Auto.php")
+
+
+
+
+
+
+?>
