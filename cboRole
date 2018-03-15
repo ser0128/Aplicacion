@@ -1,0 +1,22 @@
+<?php
+     include_once("./Utilerias/database_utilerias.php");
+    $rest = consultaRole();
+    print "<select name='idRole' id='idRole' class='form-control'> ";
+    while (!$rest->EOF)
+    {
+        $id = $rest->fields['idRole'];
+        $nom = $rest->fields['nom'];
+        print "<option value='$id'>$id</option>";
+        $rest->MoveNext();
+    }
+    
+    print "</select>";
+
+
+
+
+
+
+
+
+?>
